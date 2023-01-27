@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<robot name="assy" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find assy_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find assy_description)/urdf/assy.trans" />
+<xacro:include filename="$(find assy_description)/urdf/assy.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.024780524524499904 0.004155739460278806 0.042841056615633935" rpy="0 0 0"/>
+    <mass value="1.1900679579828592"/>
+    <inertia ixx="0.001308" iyy="0.001885" izz="0.001085" ixy="-0.0" iyz="-0.000147" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="l_pinion_1">
+  <inertial>
+    <origin xyz="-4.068551923315511e-07 1.3335383339772855e-07 -3.8830416217855435e-07" rpy="0 0 0"/>
+    <mass value="0.023209232260878784"/>
+    <inertia ixx="2e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.018325 -0.013832 -0.024077" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/l_pinion_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.018325 -0.013832 -0.024077" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/l_pinion_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="r_pinion_1">
+  <inertial>
+    <origin xyz="-4.0685519115887803e-07 1.3335536041582385e-07 -3.883089220654834e-07" rpy="0 0 0"/>
+    <mass value="0.023209232260878784"/>
+    <inertia ixx="2e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.031087 -0.013832 -0.024077" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/r_pinion_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.031087 -0.013832 -0.024077" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/r_pinion_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="l_hand_1">
+  <inertial>
+    <origin xyz="0.003872135174807549 0.01582412625141385 -0.05356500640623861" rpy="0 0 0"/>
+    <mass value="0.4713948489439418"/>
+    <inertia ixx="0.000555" iyy="0.000537" izz="8.3e-05" ixy="-5e-06" iyz="0.0" ixz="4.1e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.016979 0.019113 -0.030694" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/l_hand_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.016979 0.019113 -0.030694" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://assy_description/meshes/l_hand_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="l_base_hand_r" type="continuous">
+  <origin xyz="-0.018325 0.013832 0.024077" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="l_pinion_1"/>
+  <axis xyz="-1.0 0.0 -0.0"/>
+</joint>
+
+<joint name="r_base_hand_r" type="continuous">
+  <origin xyz="-0.031087 0.013832 0.024077" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="r_pinion_1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+</joint>
+
+<joint name="l_base_hand_s" type="prismatic">
+  <origin xyz="-0.016979 -0.019113 0.030694" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="l_hand_1"/>
+  <axis xyz="-0.0 -0.0 -1.0"/>
+  <limit upper="0.045" lower="-0.02" effort="100" velocity="100"/>
+</joint>
+
+</robot>
