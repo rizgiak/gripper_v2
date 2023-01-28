@@ -1,7 +1,7 @@
 <launch>
 
 <rosparam file="$(find assy_description)/launch/controller.yaml" command="load"/>
-<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="assy" args="l_base_hand_r_position_controller r_base_hand_r_position_controller l_base_hand_s_position_controller joint_state_controller "/>
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="assy" args="l_base_hand_r_position_controller r_base_hand_r_position_controller l_base_hand_s_position_controller l_hand_rod_a_position_controller l_hand_rod_b_position_controller l_rod_a_finger_position_controller l_rod_b_finger_position_controller r_base_hand_s_position_controller r_hand_rod_a_position_controller r_rod_a_finger_position_controller r_hand_rod_b_position_controller r_rod_b_finger_position_controller l_finger_roll_position_controller r_finger_roll_position_controller joint_state_controller "/>
 <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
   <remap from="/joint_states" to="/assy/joint_states"/>
 </node>
